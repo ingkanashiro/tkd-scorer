@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>TKD Scorer</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body style="background-color: #1e1e2e">
+
+        <div id="container">
+            
+            <div id="header" class="module" style="grid-area: header">
+                <div id="header-label" style="width: 80%">
+                    Nombre del torneo:
+                    <input id="tourney-name" type="text" placeholder="Torneo sin título">
+                </div>
+                <div id="controls"></div>
+            </div>
+
+            <div id="timeline" class="module" style="grid-area: timeline">
+                <div id="add-competitor"></div> <!-- An input and a button to add to the list -->
+                <div id="list"></div> <!-- The list of competitors -->
+                <div id="controls">
+                    <!-- Buttons for finish evaluation for the competitor, removing, editing and randomising order-->
+                </div> 
+            </div>
+            
+            
+            <div id="scorer" class="module" style="grid-area: scorer">
+                
+                <div id="markings" style:"grid-area: markings">MARK</div>
+                <div id="display" style:"grid-area: display">DISP</div>
+
+            </div>
+            
+        </div>
+
+    </body>
+</html>
