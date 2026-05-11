@@ -1,39 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <meta charset="UTF-8">
-        <title>TKD Scorer</title>
+        <title>New tourney</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body style="background-color: #1e1e2e">
 
-        <div id="container">
-            
-            <div id="header" class="module" style="grid-area: header">
-                <div id="header-label" style="width: 80%">
-                    Nombre del torneo:
-                    <input id="tourney-name" type="text" placeholder="Torneo sin título">
+        <div id="grid">
+            <div id="status-bar">                       <!-- Controls for the tourney -->
+                <!-- Logo || controls || exporting, etc... -->
+                
+                <div id="commands">
+                    <img src="./icons/dark/verified.svg">
+                    <button class="tab">File</button>
+                    <button class="tab">View</button>
                 </div>
-                <div id="controls"></div>
-            </div>
-
-            <div id="timeline" class="module" style="grid-area: timeline">
-                <div id="add-competitor"></div> <!-- An input and a button to add to the list -->
-                <div id="list"></div> <!-- The list of competitors -->
                 <div id="controls">
-                    <!-- Buttons for finish evaluation for the competitor, removing, editing and randomising order-->
+
+                    <div id="toolbar">
+                        <button>
+                            <img src="./icons/dark/debug-start.svg">
+                        </button>
+                        <button>
+                            <img src="./icons/dark/debug-stop.svg">
+                        </button>
+                        <button>
+                            <img src="./icons/dark/debug-step-back.svg">
+                        </button>
+                        <button>
+                            <img src="./icons/dark/debug-step-over.svg">
+                        </button>
+                    </div>
+
+                    <div id="sharing">
+                        <button>
+                            <img src="./icons/dark/desktop-download.svg">
+                        </button>
+                        <button>
+                            <img src="./icons/dark/cloud-upload.svg">
+                        </button>
+                    </div>
+                    
+                </div>
+
+            </div>  
+
+            <div id="subgrid">
+                <div id="sidebar" class="module">       <!-- Sidebar with competitors and tourney properties "files" -->
+                    <div id="sidebar-top">
+                        <h1>EXPLORER</h1>
+                        <button class="setting-btn new">New tournament</button>
+                    </div>
+                    <div>
+
+                    </div>
+                </div> 
+                <div id="content">       <!-- Content of the selected "file" -->
+        
+                    <div id="new-tourney" class="module"> <!-- Create a new tourney or edit current -->
+                        
+                        <div id="new-tourney-contents">
+
+                            <div id="tourney-settings">
+                                <h1 style="text-align: center">NEW TOURNEY</h1>
+    
+                                <p>Name</p>
+                                <input class="long-input">
+                                
+                                <p>Categories</p>
+                                <button id="add-new-category" class="square-btn" onclick="addCategoryField()">+</button>
+
+                                <br>
+                                <br>
+        
+                                <input type="checkbox" class="checkbox">
+                                <span>Freestyle tourney</span>
+                                <p class="desc">Flips max scores for technical and presentation scores to match 
+                                    freestyle scoring guidelines. Currently, there's no support for mixed tournaments for
+                                    scoring both freestyle and recognized poomsae. You can, alternatively, create two separate 
+                                    tournaments.</p>
+        
+                                <br>
+                                <p>Competitors</p>
+                                <div id="competitor-inputs">
+                                </div>
+                            </div>
+
+                            <button id="close-new-tourney-window">
+                                <img src="./icons/dark/chrome-close.svg">
+                            </button>
+                        </div>
+
+                        <div id="new-tourney-controls"> <!-- Save, Abort options... -->
+                            <button class="setting-btn save">Create new tournament</button>
+                            <button class="setting-btn">Abort</button>
+                        </div>
+                        
+                    </div>
+                    <div id="scorer">
+    
+                    </div>
+                    <div id="leaderboard">
+
+                    </div>
                 </div> 
             </div>
-            
-            
-            <div id="scorer" class="module" style="grid-area: scorer">
-                
-                <div id="markings" style:"grid-area: markings">MARK</div>
-                <div id="display" style:"grid-area: display">DISP</div>
 
-            </div>
-            
+
         </div>
-
+    
+        <script src="./index.js"></script>
     </body>
+
+
 </html>

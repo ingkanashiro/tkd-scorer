@@ -1,69 +1,343 @@
 :root {
-    --fonts: 'Segoe UI', 'Arial', sans-serif;
+    --accent-color: hsl(232deg, 97%, 85%);
+    --backdrop-color: hsl(240deg, 23%, 9%);
+    --backdrop-color-mantle: hsl(240deg, 21%, 12%);
+    --backdrop-color-base: hsl(240deg, 21%, 15%);
+    
+    --font-color: hsl(226deg, 64%, 88%);
+    --font-color-ov2: hsl(228deg, 17%, 64%);
+    --font-color-ov1: hsl(230deg, 13%, 55%);
+    --font-color-ov0: hsl(231deg, 11%, 47%);
+    --font-color-sec: hsl(233deg, 12%, 39%);
+
 }
 
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: inherit;
 
-#container {
+    color: var(--font-color-ov2);
+}
+
+.setting-btn {
+    background-color: var(--backdrop-color-mantle);
+    border: 0.3px solid var(--accent-color);
+    outline: inherit;
+
+    width: 4rem;
+    padding: 5px;
+
+    font-size: 12px;
+
+    border-radius: 5px;
+
+    color: var(--font-color);
+}
+
+.square-btn {
+    background-color: var(--backdrop-color-mantle);
+    border: 0.3px solid var(--accent-color);
+    
+    outline: inherit;
+
+    width: 25px;
+    height: 25px;
+    
+    margin: 4px 0 4px 0;
+
+    border-radius: 5px;
+
+    text-align: center;
+
+    color: var(--accent-color);
+}
+
+.setting-btn.save {
+    background-color: var(--accent-color);
+    border: 0.3px solid var(--accent-color);
+    outline: inherit;
+
+    width: 10rem;
+
+    color: var(--backdrop-color-mantle);
+}
+
+.setting-btn.new {
+    background-color: var(--accent-color);
+    border: 0.3px solid var(--accent-color);
+    outline: inherit;
+
+    font-size: 12px;
+
+    width: 8rem;
+
+    color: var(--backdrop-color-mantle);
+}
+
+#grid {
+    
+    width: 100%;
+    height: 95vh;
 
     display: grid;
-    width: 100%;
-    height: 50%;
-
-    grid-template-columns: 1fr 2fr;
-    grid-template-rows: 3rem 42rem;
-    gap: 8px;
-
-    grid-template-areas: "header header" "timeline scorer";
-
-    padding: 1%;
+    grid-template-rows: 1fr 30fr;
+    
+    gap: 5px;
 }
 
-#header {
+#subgrid {
+
+    width: 100%;
+    height: 93vh;
+
+    display: grid;
+    grid-template-columns: 2fr 7fr;
+    
+    gap: 5px;
+}
+
+#sidebar-top {
+    display: flex;
+    width: 100%;
+
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.module {
+    width: 100%;
+    height: 100%;
+
+    border: 0.3px solid var(--accent-color);
+    border-radius: 5px;
+    background-color: var(--backdrop-color);
+
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.module h2 {
+    color: var(--accent-color);
+    margin: 0;
+}
+
+.module h1 {
+    color: var(--accent-color);
+    
+    margin: 4px 0px 8px 0px;
+    
+    font-size: 12px;
+    font-weight: 100;
+}
+
+.module p {
+    color: var(--accent-color);
+    margin: 8px 0px 2px 0px;
+    font-size: 13px;
+}
+
+.module p.desc {
+    color: var(--font-color-ov1);
+    font-size: 12px;
+
+    width: 75%;
+
+    margin: 5px 0px 0px 1.6rem;
+}
+
+.module span {
+    color: var(--accent-color);
+    font-size: 13px;
+
+    align-self: center;
+}
+
+.module input {
+    color: var(--font-color);
+    border: 0.3px solid var(--accent-color);
+
+    background-color: var(--backdrop-color-mantle);
+    border-radius: 5px;
+
+    font-size: 12px;
+    padding: 5px;
+
+    margin: 0px 0px 4px 0px;
+}
+
+.module input.checkbox {
+    appearance: none;
+    margin: 0;
+
+    accent-color: var(--accent-color);
+    width: 20px;
+    height: 20px;
+
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+}
+
+.module input.checkbox::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: var(--backdrop-color-mantle);
+    
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%); /* it works i guess lol */
+}
+
+.module input.checkbox:checked {
+    background-color: var(--accent-color);
+}
+
+.module input.long-input {
+    width: 20rem;
+}
+
+.module input.dyn-input {
+
+    field-sizing: content;
+
+    text-align: center;
+
+    min-width: 1rem;
+    max-width: 60rem;
+
+    margin: 0px 4px 4px 0px;
+}
+
+.module input.line-input {
+
+    text-align: left;
+    width: 90%;
+
+    border: none;
+    border-radius: 0;
+    background-color: transparent;
+    border-bottom: 0.3px solid var(--font-color-ov0);
+}
+
+.module input.line-input:focus {
+
+    outline: none;
+    border-bottom: 0.3px solid white;
+}
+
+.category-input {
+    width: 16vw;
+    background-color: var(--backdrop-color-mantle);
+    border-radius: 5px;
+
+    padding: 5px 8px;
+}
+
+.category-header {
+    
     display: flex;
 
     align-items: center;
     justify-content: space-between;
-}
-
-#tourney-name {
-
-    background-color: transparent;
-    border: none;
-
-    width: 75%;
-
-    color: #74c7ec;
-    font-family: var(--fonts);
-    font-size: 1.5rem;
-    font-style: italic;
-    font-weight: 400;
-}
-
-#header-label {
-    color: #cdd6f4;
-
-    font-family: var(--fonts);
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-#scorer {
-    display: grid;
-    width: 100%;
-
-    grid-template-columns: 1fr 2fr;
     gap: 8px;
 
-
-    padding: 1%;
+    color: var(--accent-color);
+    margin: 8px 0px 8px 0px;
+    font-size: 12px;
 }
 
-.module {
+#contents {
+    width: 100%;
+    height: 100%;
 
-    padding: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: end;
 
-    border-radius: 0.5rem;
-    background-color: #181825;
+    grid-area: "contents";
+}
 
-    border: 2px solid #11111b;
+#competitor-inputs {
+    margin: 8px;
+
+    min-width: auto;
+    max-width: 71vw;
+    min-height: auto;
+    max-height: 43vh;
+
+    overflow: auto;
+
+    display: flex;
+    flex-direction: row;
+
+    gap: 4px;
+
+    color-scheme: dark;
+    scrollbar-color: var(--backdrop-color-base) var(--backdrop-color)
+}
+
+#properties {
+    height: 95%;
+}
+
+#new-tourney {
+
+    height: 100%;
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: space-between;
+}
+
+#close-new-tourney-window {
+    width: 10px;
+    height: 10px;
+
+    margin: 0px 5px 0px 0px;
+}
+
+#new-tourney-contents {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#new-tourney-controls {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+
+    gap: 8px;
+}
+
+#status-bar {
+
+    width: 100%;
+    display: flex;
+
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-content: space-between;
+
+}
+
+#commands {
+
+    width: 50%;
+    display: flex;
+
+    gap: 8px;
+}
+
+#controls {
+
+    display: flex;
+
+    gap: 16px;
+
+    justify-content: space-between;
 }
