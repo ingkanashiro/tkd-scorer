@@ -13,7 +13,7 @@
                 <!-- Logo || controls || exporting, etc... -->
                 
                 <div id="commands">
-                    <img src="./icons/dark/verified.svg">
+                    <img src="./assets/icons/verified.svg">
                     <button class="tab">File</button>
                     <button class="tab">View</button>
                 </div>
@@ -21,25 +21,25 @@
 
                     <div id="toolbar">
                         <button>
-                            <img src="./icons/dark/debug-start.svg">
+                            <img src="./assets/icons/debug-start.svg">
                         </button>
                         <button>
-                            <img src="./icons/dark/debug-stop.svg">
+                            <img src="./assets/icons/debug-stop.svg">
                         </button>
                         <button>
-                            <img src="./icons/dark/debug-step-back.svg">
+                            <img src="./assets/icons/debug-step-back.svg">
                         </button>
                         <button>
-                            <img src="./icons/dark/debug-step-over.svg">
+                            <img src="./assets/icons/debug-step-over.svg">
                         </button>
                     </div>
 
                     <div id="sharing">
                         <button>
-                            <img src="./icons/dark/desktop-download.svg">
+                            <img src="./assets/icons/desktop-download.svg">
                         </button>
                         <button>
-                            <img src="./icons/dark/cloud-upload.svg">
+                            <img src="./assets/icons/cloud-upload.svg">
                         </button>
                     </div>
                     
@@ -49,11 +49,24 @@
 
             <div id="subgrid">
                 <div id="sidebar" class="module">       <!-- Sidebar with competitors and tourney properties "files" -->
-                    <div id="sidebar-top">
+                    <div id="sidebar-top" style="margin-bottom: 8px;">
                         <h1>EXPLORER</h1>
                         <button class="setting-btn new">New tournament</button>
                     </div>
                     <div>
+
+                        <!-- List of tourneys -->
+                        <div class="tourney-file">
+                            <div class="tourney-file-header">
+                                <img src="./assets/mocha/nim.svg">
+                                <span>New tournament</span>
+                            </div>
+                            <div class="category-files">
+                                <div class="category-file"><img src="./assets/mocha/puppet.svg"><span>Under 17 M</span></div>
+                                <div class="category-file"><img src="./assets/mocha/puppet.svg"><span>Over 17 M</span></div>
+                                <div class="category-file"><img src="./assets/mocha/puppet.svg"><span>Under 17 F</span></div>
+                            </div>
+                        </div>
 
                     </div>
                 </div> 
@@ -67,35 +80,51 @@
                                 <h1 style="text-align: center">NEW TOURNEY</h1>
     
                                 <p>Name</p>
-                                <input class="long-input">
+                                <input id="tourney-name" class="long-input">
                                 
                                 <p>Categories</p>
-                                <button id="add-new-category" class="square-btn" onclick="addCategoryField()">+</button>
+                                <div style="display: flex; flex-direction: row; align-items: center; height: 2rem">
+                                    <div id="category-list"></div>
+                                    <button id="add-new-category" onclick="addCategoryField()">
+                                        <img src="./assets/icons/add.svg">
+                                    </button>
+                                </div>
 
                                 <br>
                                 <br>
         
-                                <input type="checkbox" class="checkbox">
+                                <input id="tourney-is-freestyle" type="checkbox" class="checkbox">
                                 <span>Freestyle tourney</span>
                                 <p class="desc">Flips max scores for technical and presentation scores to match 
                                     freestyle scoring guidelines. Currently, there's no support for mixed tournaments for
                                     scoring both freestyle and recognized poomsae. You can, alternatively, create two separate 
-                                    tournaments.</p>
+                                    tournaments.
+                                </p> <br>
+                                
+                                <input id="tourney-do-shuffle" type="checkbox" class="checkbox">
+                                <span>Shuffle order</span>
+                                <p class="desc">Determines whether or not the program should shuffle the competition's order
+                                    or use the order given in the input lists.
+                                </p> <br> <br>
+                                
         
-                                <br>
                                 <p>Competitors</p>
                                 <div id="competitor-inputs">
                                 </div>
                             </div>
 
                             <button id="close-new-tourney-window">
-                                <img src="./icons/dark/chrome-close.svg">
+                                <img src="./assets/icons/chrome-close.svg">
                             </button>
                         </div>
+                        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
 
-                        <div id="new-tourney-controls"> <!-- Save, Abort options... -->
-                            <button class="setting-btn save">Create new tournament</button>
-                            <button class="setting-btn">Abort</button>
+                            <span id="new-tourney-error-msgbox" style="width: 75%; color: hsl(343deg, 81%, 75%); font-style: italic; font-size: 12px;"></span>
+
+                            <div id="new-tourney-controls"> <!-- Save, Abort options... -->
+                                <button class="setting-btn save" onclick="createNewTourney()">Create new tournament</button>
+                                <button class="setting-btn">Copy from hash</button>
+                            </div>
                         </div>
                         
                     </div>

@@ -22,12 +22,40 @@ button {
     color: var(--font-color-ov2);
 }
 
+.tourney-file-header {
+    display: flex;
+    flex-direction: row;
+
+    margin-bottom: 8px;
+
+    align-items: center;
+    gap: 8px;
+}
+
+.category-files {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 8px;
+    margin-top: 4px;
+
+    gap: 8px;
+}
+
+.category-file {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    gap: 8px;
+}
+
 .setting-btn {
     background-color: var(--backdrop-color-mantle);
     border: 0.3px solid var(--accent-color);
     outline: inherit;
 
-    width: 4rem;
+    min-width: 4rem;
     padding: 5px;
 
     font-size: 12px;
@@ -76,6 +104,7 @@ button {
 
     color: var(--backdrop-color-mantle);
 }
+
 
 #grid {
     
@@ -146,7 +175,7 @@ button {
 
     width: 75%;
 
-    margin: 5px 0px 0px 1.6rem;
+    margin: 5px 0px 0px 1.8rem;
 }
 
 .module span {
@@ -171,7 +200,7 @@ button {
 
 .module input.checkbox {
     appearance: none;
-    margin: 0;
+    margin: 0px 4px 0px 0px;
 
     accent-color: var(--accent-color);
     width: 20px;
@@ -249,6 +278,7 @@ button {
     font-size: 12px;
 }
 
+
 #contents {
     width: 100%;
     height: 100%;
@@ -291,6 +321,8 @@ button {
     flex-direction: column;
 
     justify-content: space-between;
+
+    
 }
 
 #close-new-tourney-window {
@@ -340,4 +372,21 @@ button {
     gap: 16px;
 
     justify-content: space-between;
+}
+
+.error-border {
+    border: 0.3px solid hsl(343deg, 81%, 75%); 
+}
+
+.error-border:focus {
+    outline: none;
+    border: 0.3px solid hsl(343deg, 81%, 75%); 
+}
+
+.error-msgbox {
+    width: 75%;
+    color: hsl(343deg, 81%, 75%);
+
+    font-style: italic;
+    font-size: 12px;
 }
