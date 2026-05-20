@@ -10,6 +10,17 @@
     --font-color-ov0: hsl(231deg, 11%, 47%);
     --font-color-sec: hsl(233deg, 12%, 39%);
 
+    --palette-green: hsl(96deg, 44%, 68%);
+    --palette-mauve: hsl(277deg, 59%, 76%);
+    --palette-red: hsl(343deg, 81%, 75%);
+}
+
+[hidden] {
+    display: none !important;
+}
+
+.hide {
+    display: none;
 }
 
 button {
@@ -100,6 +111,17 @@ button {
     color: var(--backdrop-color-mantle);
 }
 
+.setting-btn.long {
+    background-color: var(--accent-color);
+    border: 0.3px solid var(--accent-color);
+    outline: inherit;
+
+    margin-top: 16px;
+    width: 100%;
+
+    color: var(--backdrop-color-mantle);
+}
+
 .setting-btn.new {
     background-color: var(--accent-color);
     border: 0.3px solid var(--accent-color);
@@ -183,13 +205,6 @@ button {
     width: 75%;
 
     margin: 5px 0px 0px 1.8rem;
-}
-
-.module span {
-    color: var(--accent-color);
-    font-size: 13px;
-
-    align-self: center;
 }
 
 .module input {
@@ -396,4 +411,179 @@ button {
 
     font-style: italic;
     font-size: 12px;
+}
+
+#scorer-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#scorer-contents {
+    display: grid;
+    grid-template-columns: 2fr 7fr;
+
+    height: 95%;
+}
+
+#scorer-sidebar {
+    border-right: 1px solid var(--font-color-sec);
+}
+
+#scorer-displays {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+
+    justify-content: space-evenly;
+
+    padding: 16px;
+}
+
+#scorer-interface {
+    padding: 0px 0px 0px 16px;
+}
+
+#scorer-console {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr 1fr;
+}
+
+#scorer-console-tracker {
+    display: flex;
+    justify-content: space-evenly;
+    align-content: center;
+
+    padding: 16px;
+    gap: 16px;
+}
+
+.scorer-console-tracker-device {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    gap: 8px;
+}
+
+.scorer-console-section {
+    padding: 0px 16px;
+}
+
+.two-side-table {
+    display: grid;
+    width: 100%;
+
+    gap: 0px;
+
+    grid-template-columns: 5fr 1fr;
+}
+
+.two-grid {
+    display: grid;
+    width: 100%;
+
+    grid-template-columns: 1fr 1fr;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+
+    align-content: flex-start;
+    justify-content: flex-start;
+
+    height: 35vh;
+    padding-bottom: 8px;
+}
+
+.list-element {
+    display: grid;
+    grid-template-columns: 1fr 11fr;
+    padding-bottom: 4px;
+}
+
+.text-opt {
+    color: var(--accent-color);
+    font-size: 13px;
+
+    align-self: center;
+}
+
+.text-opt-small {
+    color: var(--accent-color);
+    font-size: 12px;
+
+    align-self: center;
+
+    padding: 5px;
+    margin: 0px 0px 4px 0px;
+}
+
+.text-order {
+    font-family: 'Google Sans Code', 'Cascadia', monospace;
+    color: var(--accent-color);
+
+    font-size: 12px;
+}
+
+.text-element {
+    color: var(--font-color);
+    font-size: 12px;
+}
+
+.text-score-big {
+    font-family: 'Google Sans Code', 'Cascadia', monospace;
+    color: var(--backdrop-color-base);
+
+    font-size: 132px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.text-score-small {
+    font-family: 'Google Sans Code', 'Cascadia', monospace;
+    color: var(--font-color);
+
+    font-size: 36px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.text-score-tiny {
+    font-family: 'Google Sans Code', 'Cascadia', monospace;
+    color: var(--font-color-sec);
+
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.text-fade {
+    color: var(--backdrop-color-base);
+    font-weight: 100;
+
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.text-semifade {
+    color: var(--font-color-sec);
+    font-weight: 100;
+
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.text-icon {
+    font-family: 'Google Sans Code', 'Cascadia', monospace;
+    font-size: 28px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.text-h {
+    color: var(--accent-color);
+    font-weight: 500;
+
+    font-size: 11px;
 }

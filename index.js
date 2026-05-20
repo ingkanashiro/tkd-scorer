@@ -11,6 +11,8 @@ class Tourney {
         for (let c of categories) {
             c.id = this.id + c.id;
         }
+
+        console.log('c:', categories);
     }
 }
 
@@ -35,7 +37,23 @@ class Category {
         }
 
         this.id = getHash(name); // number related to name
+        console.log(id, name);
+    }
+}
 
+class Competitor {
+    
+    constructor(name) {
+        this.name = name;
+        this.scores = [0, 0, 0];
+    }
+
+    setScores(T, P, D) {
+        this.scores = [T, P, D];
+    }
+
+    getScore() {
+        return (this.scores[0] + this.scores[1] - this.scores[2]);
     }
 }
 
@@ -206,17 +224,20 @@ function createNewTourney() {
         let competitors = [];
 
         for (let g of e.getElementsByClassName('input-line')) {
-            competitors.push(g.value);
+            competitors.push(Competitor(g.value));
         }
 
-        let c = new Category(name, doShuffle, competitors);
+        let c = new Category(c_name, doShuffle, competitors);
+        categories.push(c);
     }
 
     let tourney = new Tourney(name, isFreestyle, categories);
     tourneys.push(tourney);
 
-    alert('Tourney created!');
     updateExplorer();
+    alert('Tourney created!');
+
+    hideTab('new-tourney');
     return;
 }
 
@@ -240,27 +261,142 @@ function updateExplorer() {
         `
 
         let c = document.createElement('div');
+        c.className = 'category-files';
+
         for (let G of T.categories) {
             let g = document.createElement('button');
             
             g.className = 'category-file';
-            g.innerHTML = `<img src="./assets/mocha/puppet.svg"><span>${g.name}</span>`
-        }
-    }
+            g.innerHTML = `<img src="./assets/mocha/puppet.svg"><span>${G.name}</span>`;
 
-    /*
-        <div class="tourney-file">
-            <div class="tourney-file-header">
-                <img src="./assets/mocha/nim.svg">
-                <span>New tournament</span>
+            g.onclick = '';
+
+            c.appendChild(g);
+        }
+
+        d.appendChild(c);
+        e.appendChild(d);
+    }
+}
+
+function newTourneyTab() {
+
+    const e = document.getElementById('new-tourney');
+    e.innerHTML = `
+        <div id="new-tourney-contents">
+            <div id="tourney-settings">
+                <h1 style="text-align: center">NEW TOURNEY</h1>
+
+                <p>Name</p>
+                <input id="tourney-name" class="long-input">
+                
+                <p>Categories</p>
+                <div style="display: flex; flex-direction: row; align-items: center; height: 2rem">
+                    <div id="category-list"></div>
+                    <button id="add-new-category" onclick="addCategoryField()">
+                        <img src="./assets/icons/add.svg">
+                    </button>
+                </div>
+
+                <br>
+                <br>
+
+                <input id="tourney-is-freestyle" type="checkbox" class="checkbox">
+                <span class="text-opt">Freestyle tourney</span>
+                <p class="desc">Flips max scores for technical and presentation scores to match 
+                    freestyle scoring guidelines. Currently, there's no support for mixed tournaments for
+                    scoring both freestyle and recognized poomsae. You can, alternatively, create two separate 
+                    tournaments.
+                </p> <br>
+                
+                <input id="tourney-do-shuffle" type="checkbox" class="checkbox">
+                <span class="text-opt">Shuffle order</span>
+                <p class="desc">Determines whether or not the program should shuffle the competition's order
+                    or use the order given in the input lists.
+                </p> <br> <br>
+                
+
+                <p>Competitors</p>
+                <div id="competitor-inputs">
+                </div>
             </div>
-            <div class="category-files">
-                <button class="category-file"><img src="./assets/mocha/puppet.svg"><span>Under 17 M</span></button>
-                <button class="category-file"><img src="./assets/mocha/puppet.svg"><span>Over 17 M</span></button>
-                <button class="category-file"><img src="./assets/mocha/puppet.svg"><span>Under 17 F</span></button>
+
+            <button id="close-new-tourney-window" onclick="hideTab('new-tourney')">
+                <img src="./assets/icons/chrome-close.svg">
+            </button>
+        </div>
+        <div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+
+            <span id="new-tourney-error-msgbox" style="width: 75%; color: hsl(343deg, 81%, 75%); font-style: italic; font-size: 12px;"></span>
+
+            <div id="new-tourney-controls"> <!-- Save, Abort options... -->
+                <button class="setting-btn save" onclick="createNewTourney()">Create new tournament</button>
+                <button class="setting-btn">Copy from hash</button>
             </div>
         </div>
-    */
+    `; // reset values (???)
+
+    showTab('new-tourney');
+}
+
+function showTab(T) {
+    document.getElementById(T).hidden = false;
+}
+
+function hideTab(T) {
+    document.getElementById(T).hidden = true;
+}
+
+function activateCategory(e) {
+    // search for category with id equal to e.id
+
+    // assign queue, leaderboard and competitor
+}
+
+let activeQueue = [
+    Competitor('JOHN DOE'),
+    Competitor('JANE DOE'),
+    Competitor('STEVE FROM MINECRAFT')
+];
+let activeCompetitor;
+
+function submitEval() {
+    const T = document.getElementById('scorer-techical-scores').querySelectorAll('input');
+    const P = document.getElementById('scorer-presentation-scores').querySelectorAll('input');
+    const D = document.getElementById('scorer-deduction-scores').querySelectorAll('input');
+
+    let t = 0.0, p = 0.0, d = 0.0;
+
+    for (let input of T) {
+        t += input.value;
+    }
+
+    for (let input of P) {
+        p += input.value;
+    }
+
+    for (let input of D) {
+
+        if ((input.id === 'd-hs' || input.id === 'd-bs' || input.id === 'd-tk') && !input.checked) {
+            d += 0.3;
+        }
+
+        if (input.id === 'd-re' && input.checked) {
+            d += 0.6;
+        }
+
+        if ((input.id === 'd-ot' || input.id === 'd-sb') && input.checked) {
+            d += 0.3;
+        }
+
+        if (input.id === 'd-gn') {
+            d += (0.3 * input.value); 
+        }
+
+        // there's only one examinator, so no average is needed (yet)
+        activeCompetitor.setScores(t, p, d);
+    }
+
 
 
 }
