@@ -118,7 +118,7 @@
                         
                     </div>
 
-                    <div id="scorer" class="module">
+                    <div id="scorer" class="module" hidden>
                         <div id="scorer-header">
                             <h1 style="text-align: center; width: 95%">OVER 17 M</h1>
 
@@ -173,93 +173,111 @@
                                 <!-- Message box -->
                             </div>
 
-                            <div id="scorer-interface">
-                                
-                                <div>
-                                    <span class="text-h">COMPETITOR A</span>
-                                </div>
-                                
-                                <!-- Big score display -->
-                                <div id="scorer-total-score" class="text-score-big" style="margin-top: 16px; margin-bottom: 16px">
-                                    <span class="text-fade">></span><span id="total-score">-.---</span><span class="text-fade"><</span>
-                                </div>
+                            <div style="
+                                display: flex;
+                                justify-content: center;
+                                align-content: center;
+                            ">
+                                <div id="scorer-await" style="
+                                    display: flex;
+                                    width: 100%; 
+                                    height: 100%;
 
-                                <!-- Tech & Presen displays -->
-                                <div id="scorer-displays" class="text-score-small">
-                                    
-                                    <div>
-                                        <span class="text-icon" style="color: var(--palette-green)">T</span>
-                                        <span id="tech-score">4.6</span>
-                                    </div>
-                                    
-                                    <span class="text-semifade">+</span>
-                                    
-                                    <div>
-                                        <span class="text-icon" style="color: var(--palette-mauve)">P</span>
-                                        <span id="presen-score">3.7</span>
-                                    </div>
-                                    
-                                    <span class="text-semifade">-</span>
-                                    
-                                    <div>
-                                        <span class="text-icon" style="color: var(--palette-red)">D</span>
-                                        <span id="presen-score">0.1</span>
-                                    </div>
+                                    justify-content: center;
+                                    align-content: center;
+                                ">
+                                    <button class="setting-btn start" onclick="startCategory()">Start category rounds</button>
                                 </div>
 
-                                <div id="scorer-console">
-                                    <div id="scorer-technical-interface" class="scorer-console-section">
-                                        <div id="scorer-technical-scores" class="two-side-table">
-                                            <span class="text-opt-small">Flying side kick</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                            <span class="text-opt-small">Airborne consecutive kicks</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                            <span class="text-opt-small">Gradient of spin</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                            <span class="text-opt-small">Consecutive sparring kicks</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                            <span class="text-opt-small">Acrobatic line</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                            <span class="text-opt-small">Basic movements and practicability</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                        </div>
+                                <div id="scorer-interface" hidden>
+                                    
+                                    <div>
+                                        <span id="scorer-competitor-header" class="text-h">COMPETITOR A</span>
                                     </div>
-                                    <div id="scorer-presentation-interface" class="scorer-console-section"
-                                     style="border-right: 1px solid var(--font-color-sec); border-left: 1px solid var(--font-color-sec)">
-                                        <div id="scorer-presentation-scores" class="two-side-table">
-                                            <span class="text-opt-small">Creativity</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                            <span class="text-opt-small">Harmony</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                            <span class="text-opt-small">Expression of energy</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                            <span class="text-opt-small">Music & Choreography</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
-                                        </div>                                       
+                                    
+                                    <!-- Big score display -->
+                                    <div id="scorer-total-score" class="text-score-big" style="margin-top: 16px; margin-bottom: 16px">
+                                        <span class="text-fade">></span><span id="total-score" class="text-score-big">-.---</span><span class="text-fade"><</span>
                                     </div>
 
-                                    <div class="scorer-console-section">
+                                    <!-- Tech & Presen displays -->
+                                    <div id="scorer-displays" class="text-score-small">
                                         
-                                        <div id="scorer-deduction-scores" class="two-side-table">
-                                            <span class="text-opt-small">Hakdari Seogi</span><input id="d-hs" class="checkbox" type="checkbox">
-                                            <span class="text-opt-small">Bom Seogi</span><input id="d-bs" class="checkbox" type="checkbox">
-                                            <span class="text-opt-small">Dwitkubi</span><input id="d-tk" class="checkbox" type="checkbox">
-                                            <span class="text-opt-small">Unreasonable restart</span><input id="d-re" class="checkbox" type="checkbox">
-                                            <span class="text-opt-small">Outside of time limits</span><input id="d-ot" class="checkbox" type="checkbox">
-                                            <span class="text-opt-small">Additional spar bounces</span><input id="d-sb" class="checkbox" type="checkbox">
-                                            <span class="text-opt-small">Fouls</span><input id="d-gn" type="number" placeholder="0" min="0" step="1" class="line-input ">
+                                        <div>
+                                            <span class="text-icon" style="color: var(--palette-green)">T</span>
+                                            <span id="tech-score">-.-</span>
                                         </div>
-                                                                                
+                                        
+                                        <span class="text-semifade">+</span>
+                                        
+                                        <div>
+                                            <span class="text-icon" style="color: var(--palette-mauve)">P</span>
+                                            <span id="presen-score">-.-</span>
+                                        </div>
+                                        
+                                        <span class="text-semifade">-</span>
+                                        
+                                        <div>
+                                            <span class="text-icon" style="color: var(--palette-red)">D</span>
+                                            <span id="deduction-score">-.-</span>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <button class="setting-btn long" onclick="submitEval()">Submit evaluation for this run</button>                                
-                                
-                                <div id="scorer-console-tracker">
-                                    <!-- Displays all the active consoles for the tournament (especially when LAN) -->
-                                    <div class="scorer-console-tracker-device">
-                                        <img src="assets/mocha/security.svg">
-                                        <span class="text-score-tiny">-.-</span>
+                                    <div id="scorer-console">
+                                        <div id="scorer-technical-interface" class="scorer-console-section">
+                                            <div id="scorer-technical-scores" class="two-side-table">
+                                                <span class="text-opt-small">Flying side kick</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                                <span class="text-opt-small">Airborne consecutive kicks</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                                <span class="text-opt-small">Gradient of spin</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                                <span class="text-opt-small">Consecutive sparring kicks</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                                <span class="text-opt-small">Acrobatic line</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                                <span class="text-opt-small">Basic movements and practicability</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                            </div>
+                                        </div>
+                                        <div id="scorer-presentation-interface" class="scorer-console-section"
+                                        style="border-right: 1px solid var(--font-color-sec); border-left: 1px solid var(--font-color-sec)">
+                                            <div id="scorer-presentation-scores" class="two-side-table">
+                                                <span class="text-opt-small">Creativity</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                                <span class="text-opt-small">Harmony</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                                <span class="text-opt-small">Expression of energy</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                                <span class="text-opt-small">Music & Choreography</span><input type="number" placeholder="0.0" min="0" max="1.0" step="0.1" class="line-input">
+                                            </div>                                       
+                                        </div>
+
+                                        <div class="scorer-console-section">
+                                            
+                                            <div id="scorer-deduction-scores" class="two-side-table">
+                                                <span class="text-opt-small">Hakdari Seogi</span><input id="d-hs" class="checkbox" type="checkbox">
+                                                <span class="text-opt-small">Bom Seogi</span><input id="d-bs" class="checkbox" type="checkbox">
+                                                <span class="text-opt-small">Dwitkubi</span><input id="d-tk" class="checkbox" type="checkbox">
+                                                <span class="text-opt-small">Unreasonable restart</span><input id="d-re" class="checkbox" type="checkbox">
+                                                <span class="text-opt-small">Outside of time limits</span><input id="d-ot" class="checkbox" type="checkbox">
+                                                <span class="text-opt-small">Additional spar bounces</span><input id="d-sb" class="checkbox" type="checkbox">
+                                                <span class="text-opt-small">Fouls</span><input id="d-gn" type="number" placeholder="0" min="0" step="1" class="line-input ">
+                                            </div>
+                                                                                    
+                                        </div>
                                     </div>
-                                    <div class="scorer-console-tracker-device">
-                                        <img src="assets/mocha/security.svg">
-                                        <span class="text-score-tiny">-.-</span>
-                                    </div>
-                                    <div class="scorer-console-tracker-device">
-                                        <img src="assets/mocha/security.svg">
-                                        <span class="text-score-tiny">-.-</span>
-                                    </div>
-                                </div> 
+
+                                    <button id="scorer-submit-btn" class="setting-btn long" onclick="submitEval()">Submit evaluation for this run</button>                               
+                                    <button id="scorer-continue-btn" class="setting-btn long" onclick="jumpToNext()" hidden>Continue</button>                               
+                                    
+                                    <div id="scorer-console-tracker">
+                                        <!-- Displays all the active consoles for the tournament (especially when LAN) -->
+                                        <div class="scorer-console-tracker-device">
+                                            <img src="assets/mocha/security.svg">
+                                            <span class="text-score-tiny">-.-</span>
+                                        </div>
+                                        <div class="scorer-console-tracker-device">
+                                            <img src="assets/mocha/security.svg">
+                                            <span class="text-score-tiny">-.-</span>
+                                        </div>
+                                        <div class="scorer-console-tracker-device">
+                                            <img src="assets/mocha/security.svg">
+                                            <span class="text-score-tiny">-.-</span>
+                                        </div>
+                                    </div> 
+                                </div>
                             </div>
 
                         </div>

@@ -3,16 +3,14 @@ class Tourney {
     // hash: [NAME][#Categories][CategoryName][#Cont]...
     constructor(name, isFreestyle, categories) {
         
-        this.id = getHash(name);
+        this.id = getId(name);
         this.name = name;
         this.isFreestyle = isFreestyle;
         this.categories = categories;
         
         for (let c of categories) {
-            c.id = this.id + c.id;
+            c.id = this.id + '/' + c.id;
         }
-
-        console.log('c:', categories);
     }
 }
 
@@ -20,24 +18,46 @@ class Category {
 
     constructor(name, doShuffle, contestants) {
 
-        let list = contestants;
-
         if (doShuffle) {
-            list = shuffle(list);
+            this.queue = shuffle(contestants);
+        }
+        else {
+            this.queue = contestants;
         }
 
         this.name = name;
-        this.queue = list;
         this.leaderboard = [];
 
-        let id = 0;
-        for (let char in name) {
-            id += char;
-            id *= 100;
-        }
+        this.id = getId(name); // number related to name
+    }
 
-        this.id = getHash(name); // number related to name
-        console.log(id, name);
+    updateLeaderboard(upto) {
+        this.leaderboard = [];
+
+        for (let i = 0; i < upto; i++) {
+
+            if (i === 0) {
+                this.leaderboard[0] = this.queue[i];
+                continue;
+            }
+
+            let j = 0;
+            while (j < i) {
+
+                if (this.leaderboard[j] < this.queue[i]) {
+                    for (let r = i; r > j; r--) {
+                        this.leaderboard[r] = this.leaderboard[r-1];
+                    }
+
+                    this.leaderboard[j] = this.queue[i];
+                    break;
+                }
+
+                if (++j === i) {
+                    this.leaderboard[j] = this.queue[i];
+                }
+            }
+        }
     }
 }
 
@@ -57,20 +77,20 @@ class Competitor {
     }
 }
 
-let tourneys = [];
+function getId(str) {
 
-function getHash(str) {
-    
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-        hash = ((hash << 5) - hash) + str.charCodeAt(i);
-        hash |= 0; // Convert to 32bit integer
+    let val = str;
+
+    for (char of val) {
+        if (char === ' ') {
+            char = '-';
+        }
     }
 
-    let string = toString(hash);
-
-    return string;
+    return val;
 }
+
+let tourneys = [];
 
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
@@ -223,8 +243,8 @@ function createNewTourney() {
 
         let competitors = [];
 
-        for (let g of e.getElementsByClassName('input-line')) {
-            competitors.push(Competitor(g.value));
+        for (let g of e.querySelectorAll('input')) {
+            competitors.push(new Competitor(g.value));
         }
 
         let c = new Category(c_name, doShuffle, competitors);
@@ -266,10 +286,12 @@ function updateExplorer() {
         for (let G of T.categories) {
             let g = document.createElement('button');
             
+            g.id = G.id; // yes working maybe?
             g.className = 'category-file';
             g.innerHTML = `<img src="./assets/mocha/puppet.svg"><span>${G.name}</span>`;
 
-            g.onclick = '';
+            console.log(g);
+            g.addEventListener("click", () => activateCategory(g));
 
             c.appendChild(g);
         }
@@ -347,32 +369,121 @@ function hideTab(T) {
     document.getElementById(T).hidden = true;
 }
 
-function activateCategory(e) {
-    // search for category with id equal to e.id
+let activeCategory;
+let activeCompetitorIndex = 0;
+let isTourneyStarted = false;
 
-    // assign queue, leaderboard and competitor
+function updateScorer() {
+    let e = document.getElementById('scorer');
+
+    if (isTourneyStarted) {
+        hideTab('scorer-await');
+        showTab('scorer-interface');
+    }
+    else {
+        hideTab('scorer-interface');
+        showTab('scorer-await');
+    }
+
+    document.getElementById('scorer-competitor-header').textContent = activeCategory.queue[activeCompetitorIndex].name;
+
+    for (let i = 1; i <= activeCategory.leaderboard.length; i++) {
+        let e = document.createElement('div');
+
+        console.log(activeCategory.leaderboard[i-1]);
+    
+        e.className = 'list-element';
+        e.innerHTML = `
+            <span class="text-order">${i}</span>
+            <span class="text-element">${activeCategory.leaderboard[i-1].name}</span>
+        `;
+    
+        queue.appendChild(e);
+    }
 }
 
-let activeQueue = [
-    Competitor('JOHN DOE'),
-    Competitor('JANE DOE'),
-    Competitor('STEVE FROM MINECRAFT')
-];
-let activeCompetitor;
+function activateCategory(e) {
+    // search for category with id equal to e.id
+    console.log('tourneys:', tourneys);
+
+    console.log(e);
+    let foundValue = false;
+
+    for (let T of tourneys) for (let cc of T.categories) {
+        console.log(cc);
+
+        if (cc.id === e.id) {
+            activeCategory = cc;
+            foundValue = true;
+            break;
+        }
+    }
+
+    if (!foundValue) {
+        return;
+    }
+
+    // assign values to tab
+
+    let queue = document.getElementById('scorer-queue');
+    console.log(queue);
+    queue.innerHTML = ``;
+
+    console.log(activeCategory);
+
+    for (let i = 1; i <= activeCategory.queue.length; i++) {
+        let e = document.createElement('div');
+
+        console.log(activeCategory.queue[i-1]);
+    
+        e.className = 'list-element';
+        e.innerHTML = `
+            <span class="text-order">${i}</span>
+            <span class="text-element">${activeCategory.queue[i-1].name}</span>
+        `;
+    
+        queue.appendChild(e);
+    }
+
+    let leaderboard = document.getElementById('scorer-leaderboard');
+    leaderboard.innerHTML = ``;
+
+    // show tab
+    console.log('category opened');
+
+    showTab('scorer');
+    isTourneyStarted = false;
+
+    updateScorer();
+}
+
+function startCategory() {
+    isTourneyStarted = true;
+
+    // go to first competitor up to eval.
+    activeCompetitorIndex = 0; // start indexing from 0
+    updateScorer();
+}
+
+function endCategory() {
+    // add results to leaderboard
+    updateScorer();
+}
 
 function submitEval() {
-    const T = document.getElementById('scorer-techical-scores').querySelectorAll('input');
+
+    const T = document.getElementById('scorer-technical-scores').querySelectorAll('input');
     const P = document.getElementById('scorer-presentation-scores').querySelectorAll('input');
     const D = document.getElementById('scorer-deduction-scores').querySelectorAll('input');
 
     let t = 0.0, p = 0.0, d = 0.0;
 
     for (let input of T) {
-        t += input.value;
+        t += Number(input.value);
     }
 
     for (let input of P) {
-        p += input.value;
+        p += Number(input.value);
     }
 
     for (let input of D) {
@@ -392,11 +503,51 @@ function submitEval() {
         if (input.id === 'd-gn') {
             d += (0.3 * input.value); 
         }
-
-        // there's only one examinator, so no average is needed (yet)
-        activeCompetitor.setScores(t, p, d);
     }
+    
+    // there's only one examinator, so no average is needed (yet)
+    document.getElementById('tech-score').textContent = t.toFixed(1);
+    document.getElementById('presen-score').textContent = p.toFixed(1);
+    document.getElementById('deduction-score').textContent = d.toFixed(1);
 
+    document.documentElement.style.setProperty('--font-color-scorer', 'hsl(226deg, 64%, 88%)');
+    
+    document.getElementById('total-score').textContent = (t + p - d).toFixed(3);
+    
+    activeCategory.queue[activeCompetitorIndex].setScores(t, p, d);
+    
+    activeCategory.updateLeaderboard(activeCompetitorIndex);
+    alert('Score submitted!');
+    
+    
+    showTab('scorer-continue-btn');
+    hideTab('scorer-submit-btn');
+    
+    // this change happens right after you submit your score
+    document.documentElement.style.setProperty('--font-color-scorer-big', 'hsl(23deg, 92%, 75%)');
+    
+    // this change is after all the examinators submitted
+    // document.documentElement.style.setProperty('--font-color-scorer-big', 'hsl(226deg, 64%, 88%)');
+}
 
+function jumpToNext() {
+    activeCompetitorIndex++;
+    
+    if (activeCompetitorIndex >= activeCategory.queue.length) {
+        endCategory();
+        return;
+    }
+    
+    document.getElementById('tech-score').textContent = '-.-';
+    document.getElementById('presen-score').textContent = '-.-';
+    document.getElementById('deduction-score').textContent = '-.-';
+    document.getElementById('total-score').textContent = '-.---';
+    
+    document.documentElement.style.setProperty('--font-color-scorer', 'hsl(240deg, 21%, 15%)');
+    document.documentElement.style.setProperty('--font-color-scorer-big', 'hsl(240deg, 21%, 15%)');
 
+    updateScorer();
+
+    showTab('scorer-submit-btn');
+    hideTab('scorer-continue-btn');
 }

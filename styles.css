@@ -10,6 +10,9 @@
     --font-color-ov0: hsl(231deg, 11%, 47%);
     --font-color-sec: hsl(233deg, 12%, 39%);
 
+    --font-color-scorer: hsl(240deg, 21%, 15%);
+    --font-color-scorer-big: hsl(240deg, 21%, 15%);
+
     --palette-green: hsl(96deg, 44%, 68%);
     --palette-mauve: hsl(277deg, 59%, 76%);
     --palette-red: hsl(343deg, 81%, 75%);
@@ -54,10 +57,10 @@ button {
     display: flex;
     flex-direction: column;
 
+    gap: 4px;
+
     margin-left: 8px;
     margin-top: 4px;
-
-    gap: 8px;
 }
 
 .category-file {
@@ -66,7 +69,17 @@ button {
 
     align-items: center;
     gap: 8px;
+
+    border-radius: 8px;
+    padding: 4px;
+    padding-left: 8px;
 }
+
+
+.category-file:hover {
+    background-color: var(--backdrop-color-base);
+}
+
 
 .setting-btn {
     background-color: var(--backdrop-color-mantle);
@@ -107,6 +120,23 @@ button {
     outline: inherit;
 
     width: 10rem;
+
+    color: var(--backdrop-color-mantle);
+}
+
+.setting-btn.start {
+    background-color: var(--accent-color);
+    border: 0.3px solid var(--accent-color);
+    outline: inherit;
+
+    margin: 2%;
+    margin-top: 1%;
+
+    width: 98%;
+    height: 98%;
+
+    font-weight: 600;
+    font-size: 1rem;
 
     color: var(--backdrop-color-mantle);
 }
@@ -533,16 +563,16 @@ button {
 
 .text-score-big {
     font-family: 'Google Sans Code', 'Cascadia', monospace;
-    color: var(--backdrop-color-base);
+    color: var(--font-color-scorer-big);
 
     font-size: 132px;
-    font-weight: 400;
+    font-weight: 600;
     text-align: center;
 }
 
 .text-score-small {
     font-family: 'Google Sans Code', 'Cascadia', monospace;
-    color: var(--font-color);
+    color: var(--font-color-scorer);
 
     font-size: 36px;
     font-weight: 600;
